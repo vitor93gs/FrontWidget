@@ -13,7 +13,7 @@ export const feedbackTypes = {
 		icon: { source: minhocaUrl, alt: 'Imagem de uma minhoca' },
 	},
 	IDEA: {
-		name: 'Ideia',
+		name: 'Idéia',
 		icon: { source: lampadaUrl, alt: 'Imagem de uma lâmpada' },
 	},
 	OTHER: {
@@ -27,22 +27,27 @@ export type FeedbackType = keyof typeof feedbackTypes;
 export function Form() {
 	const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
 
+	function handleRestartFeedback(){
+		setFeedbackType(null);
+	}
+
 	return (
 		<div className="bg-zinc-800 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
 			
 			{!feedbackType ? (
 				<Escolha setFeedbackType={setFeedbackType} />
 			) : (
-				<Conteudo />
+				<Conteudo feedbackType={feedbackType} onFeedbackRestart={handleRestartFeedback}/>
 			)}
 			<footer className="text-xs text-neutral-400">
-				Feito por{' '}
+				Feito por pelo mestre dos magos, rei dos reis, chefe dos chefes, deus dos deuses, {" "}
 				<a
 					className="underline underline-offset-2"
 					href="https://github.com/vitor93gs"
 				>
 					Vitor!
 				</a>
+				{" "}O glorioso.
 			</footer>
 		</div>
 	);
