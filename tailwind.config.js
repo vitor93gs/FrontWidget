@@ -1,7 +1,11 @@
 module.exports = {
 	content: ['./src/**/*.tsx'],
 	theme: {
-		extend: {},
+		extend: {
+			borderRadius: {
+				md: '4px'
+			},
+		},
 	},
-	plugins: [require('@tailwindcss/forms')],
+	plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')],
 };
