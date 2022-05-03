@@ -27,27 +27,28 @@ export type FeedbackType = keyof typeof feedbackTypes;
 export function Form() {
 	const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
 
-	function handleRestartFeedback(){
+	function handleRestartFeedback() {
 		setFeedbackType(null);
 	}
 
 	return (
 		<div className="bg-zinc-800 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-			
 			{!feedbackType ? (
 				<Escolha setFeedbackType={setFeedbackType} />
 			) : (
-				<Conteudo feedbackType={feedbackType} onFeedbackRestart={handleRestartFeedback}/>
+				<Conteudo
+					feedbackType={feedbackType}
+					onFeedbackRestart={handleRestartFeedback}
+				/>
 			)}
 			<footer className="text-xs text-neutral-400">
-				Feito por pelo mestre dos magos, rei dos reis, chefe dos chefes, deus dos deuses, {" "}
+				Feito por pelo dev{' '}
 				<a
 					className="underline underline-offset-2"
 					href="https://github.com/vitor93gs"
 				>
 					Vitor!
 				</a>
-				{" "}O glorioso.
 			</footer>
 		</div>
 	);
