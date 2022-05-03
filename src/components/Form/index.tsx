@@ -6,6 +6,7 @@ import minhocaUrl from '../../assets/minhoca.svg';
 import lampadaUrl from '../../assets/lampada.svg';
 import nuvemUrl from '../../assets/nuvem.svg';
 import { Conteudo } from './Passos/Conteudo';
+import { Sucesso } from './Passos/Sucesso';
 
 export const feedbackTypes = {
 	BUG: {
@@ -26,19 +27,24 @@ export type FeedbackType = keyof typeof feedbackTypes;
 
 export function Form() {
 	const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
+	const [feedbackSent, setFeedbackSent] = useState(false);
 
 	function handleRestartFeedback() {
+		setFeedbackSent(false);
 		setFeedbackType(null);
 	}
 
 	return (
 		<div className="bg-zinc-800 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-			{!feedbackType ? (
+			{feedbackSent ? (
+				<Sucesso onFeedbackRestart={handleRestartFeedback} />
+			) : !feedbackType ? (
 				<Escolha setFeedbackType={setFeedbackType} />
 			) : (
 				<Conteudo
 					feedbackType={feedbackType}
 					onFeedbackRestart={handleRestartFeedback}
+					onFeedbackSent={() => setFeedbackSent(true)}
 				/>
 			)}
 			<footer className="text-xs text-neutral-400">
