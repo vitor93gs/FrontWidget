@@ -1,6 +1,8 @@
 import { ArrowLeft, Camera } from 'phosphor-react';
+import { useState } from 'react';
 import { FeedbackType, feedbackTypes } from '..';
 import { CloseButton } from '../../CloseButton';
+import { BotaoScreenshot } from './BotaoScreenshot';
 
 interface Props {
 	feedbackType: FeedbackType;
@@ -9,6 +11,7 @@ interface Props {
 
 export function Conteudo({ feedbackType, onFeedbackRestart }: Props) {
 	const feedbackTypeInfo = feedbackTypes[feedbackType];
+	const [screenshot, setScreenshot] = useState<string | null>(null);
 	return (
 		<>
 			<header>
@@ -35,12 +38,7 @@ export function Conteudo({ feedbackType, onFeedbackRestart }: Props) {
 					placeholder="Conte com detalhes o que acontece com o senhor, jovem gafanhoto..."
 				/>
 				<footer className="flex gap-2 mt-2">
-					<button
-						type="button"
-						className="p-2 bg-zinc-800 rounded-md border-transparent hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-red-700"
-					>
-						<Camera className="h-6 w-6" />
-					</button>
+					<BotaoScreenshot onScreenshot={setScreenshot}/>
 					<button
 						type="submit"
 						className="p-2 bg-red-700 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-red-700 transition-colors duration-300"
