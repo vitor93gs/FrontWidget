@@ -3,6 +3,7 @@ import { FormEvent, useState } from 'react';
 import { FeedbackType, feedbackTypes } from '..';
 import { api } from '../../../lib/api';
 import { CloseButton } from '../../CloseButton';
+import { Loading } from '../../Loading';
 import { BotaoScreenshot } from './BotaoScreenshot';
 
 interface Props {
@@ -27,7 +28,7 @@ export function Conteudo({
 			setIsSendingFeedback(true);
 			// console.log({ screenshot, comment });
 
-			await api.post('/feedback', {
+			await api.post('/feedbacks', {
 				type: feedbackType,
 				comment,
 				screenshot,
@@ -74,9 +75,9 @@ export function Conteudo({
 						type="submit"
 						className="p-2 bg-red-700 rounded-md border-transparent flex-1 flex justify-center items-center text-sm hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-red-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-700"
 						onClick={handleSubmitFeedback}
-						disabled={comment.length === 0}
+						disabled={isSendingFeedback || comment.length === 0}
 					>
-						Enviar DEDADA
+						{isSendingFeedback ? <Loading /> : 'Enviar Feedback'}
 					</button>
 				</footer>
 			</form>
