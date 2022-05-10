@@ -1,6 +1,7 @@
 import { ArrowLeft, Camera, Target } from 'phosphor-react';
 import { FormEvent, useState } from 'react';
 import { FeedbackType, feedbackTypes } from '..';
+import { api } from '../../../lib/api';
 import { CloseButton } from '../../CloseButton';
 import { BotaoScreenshot } from './BotaoScreenshot';
 
@@ -18,11 +19,24 @@ export function Conteudo({
 	const feedbackTypeInfo = feedbackTypes[feedbackType];
 	const [screenshot, setScreenshot] = useState<string | null>(null);
 	const [comment, setComment] = useState('');
+	const [isSendingFeedback, setIsSendingFeedback] = useState(false);
 
-	function handleSubmitFeedback(event: FormEvent) {
-		event.preventDefault();
-		console.log({ screenshot, comment });
-		onFeedbackSent();
+	async function handleSubmitFeedback(event: FormEvent) {
+		try {
+			event.preventDefault();
+			setIsSendingFeedback(true);
+			// console.log({ screenshot, comment });
+
+			await api.post('/feedback', {
+				type: feedbackType,
+				comment,
+				screenshot,
+			});
+			setIsSendingFeedback(false);
+			onFeedbackSent();
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	return (
